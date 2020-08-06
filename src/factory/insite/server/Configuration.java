@@ -27,6 +27,8 @@ public final class Configuration {
     // OPTIONS
         // server listening port
         private final int port = 21;
+        // files location
+        private final String pwd = "C:\\Users\\vhatv\\Desktop\\fst";
         // max connections count
         private final int backlog = 2;
         // 0.0.0.0 or 127.0.0.1
@@ -93,5 +95,9 @@ public final class Configuration {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public String getPwd() {
+        return pwd;
     }
 }

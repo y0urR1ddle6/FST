@@ -22,7 +22,6 @@ public class Auth {
     }
 
     public void setPassword(String password) {
-        // TODO pass validation
         this.password = password;
     }
 

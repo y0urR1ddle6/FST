@@ -4,9 +4,7 @@ import factory.insite.kernel.security.User;
 import factory.insite.server.Configuration;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PipedReader;
 import java.util.Scanner;
 
 public class InteractiveSession {
@@ -24,10 +22,26 @@ public class InteractiveSession {
         while (true){
             try {
                 out.write("$ ".getBytes());
-                String cmd = in.nextLine();
-            } catch (IOException e) {
-                e.printStackTrace();
+                String parseMe = in.nextLine();
+                runCommand(parseMe);
+            } catch (Exception e) {
+                return;
             }
+        }
+    }
+
+    private void runCommand(String parseMe){
+        String cmd = parseMe.split(" ")[0];
+        for(Commands commandType : Commands.values()){
+            if(commandType.name().toLowerCase().equals(cmd)){
+                commandType.run(parseMe.replaceAll(cmd + " ",""),user,in,out);
+                return;
+            }
+        }
+        try {
+            out.write(("Command: " + cmd + " not found.\n").getBytes());
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 
